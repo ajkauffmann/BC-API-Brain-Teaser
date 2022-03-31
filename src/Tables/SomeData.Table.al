@@ -25,8 +25,21 @@ table 50900 SomeDataPTE
             exit;
 
         Clear(Rec.Data);
-        
+
         Rec.Data.CreateOutStream(OutStr);
         Base64Convert.FromBase64(Value, OutStr);
+    end;
+
+    internal procedure GetData() Value: Text
+    var
+        Base64Convert: Codeunit "Base64 Convert";
+        InStr: InStream;
+    begin
+        if not Rec.Data.HasValue() then
+            exit;
+
+        Rec.CalcFields(Data);
+        Rec.Data.CreateInStream(InStr);
+        Value := Base64Convert.ToBase64(InStr);
     end;
 }

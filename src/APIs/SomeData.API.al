@@ -2,7 +2,6 @@ page 50901 SomeDataAPIPTE
 {
     PageType = API;
     SourceTable = SomeDataPTE;
-    SourceTableTemporary = true;
     DelayedInsert = true;
     APIPublisher = 'cronus';
     APIGroup = 'data';
@@ -20,6 +19,7 @@ page 50901 SomeDataAPIPTE
                 field(id; Rec.SystemId) { Editable = false; }
                 field(code; Rec.Code) { Editable = false; }
                 field(data; base64Data) { }
+                field(lastDateTimeModified; Rec.SystemModifiedAt) { Editable = false; }
             }
         }
     }
@@ -37,5 +37,10 @@ page 50901 SomeDataAPIPTE
         SomeData.Insert(true);
         Rec := SomeData;
         exit(false);
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        base64Data := Rec.GetData();
     end;
 }
