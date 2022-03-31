@@ -34,7 +34,7 @@ page 50901 SomeDataAPIPTE
         SomeData.Init();
         SomeData.Code := SomeData.GetNextCode();
         SomeData.SetData(base64Data);
-        SomeData.Insert();
+        SomeData.Insert(true);
         Rec := SomeData;
         exit(false);
     end;
